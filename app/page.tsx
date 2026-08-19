@@ -15,7 +15,7 @@ import { SCROLL_HEIGHT_VH } from '@/lib/site'
 
 export default function Home() {
   const sectionRef = useRef<HTMLElement>(null)
-  const progress = useSectionProgress(sectionRef)
+  const { value: progress, subscribe } = useSectionProgress(sectionRef)
   const { images, progress: loadProgress, ready } = useFramePreloader()
 
   // The scroll ticker mounts before the stage exists, so its first reading is
@@ -38,7 +38,7 @@ export default function Home() {
             style={{ height: `${SCROLL_HEIGHT_VH}vh` }}
           >
             <div className="sticky-frame">
-              <ScrollCanvas images={images} progress={progress} />
+              <ScrollCanvas images={images} subscribe={subscribe} />
               <TextOverlay progress={progress} />
             </div>
           </section>

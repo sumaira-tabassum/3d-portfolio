@@ -23,4 +23,4 @@ export const MOBILE_BREAKPOINT = 768
 export const SCROLL_HEIGHT_VH = 500
 
 export const framePath = (index: number) =>
-  `/frames/frame_${String(index).padStart(4, '0')}.webp`
+  `/frames/frame_${String(index).padStart(4, '0')}.avif`

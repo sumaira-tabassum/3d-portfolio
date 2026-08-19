@@ -65,8 +65,8 @@
 
 ### Source
 - Video file: `scroll-animation.mp4` in project root (your Kling-generated bracket video)
-- Extract frames: `ffmpeg -i scroll-animation.mp4 -vf fps=30 public/frames/frame_%04d.webp`
-- Output format: `.webp` to `/public/frames/`
+- Extract frames: `ffmpeg -i scroll-animation.mp4 -vf fps=30 public/frames/frame_%04d.avif`
+- Output format: `.avif` to `/public/frames/` (switched from WebP — smaller payload at equal/better visual quality for this content, see `scripts/extract-frames.mjs`)
 
 ### Canvas Setup
 - Full viewport, `position: sticky`, background `#05070A`
@@ -210,7 +210,7 @@ pointer-events: none;
 - Use `requestAnimationFrame` for canvas rendering — never `setInterval`
 - Mobile (< 768px): skip every 2nd frame
 - Cache frames: source `/frames/:path*`, `Cache-Control: public, max-age=31536000, immutable`
-- All frame images must be `.webp`
+- All frame images must be `.avif`
 
 ---
 
@@ -220,7 +220,7 @@ pointer-events: none;
 title: '[Your Agency Name] — Code, Perfected.'
 description: 'Software development & consulting. No shortcuts, built right.'
 themeColor: '#05070A'
-openGraph.images: ['/frames/frame_0001.webp']
+openGraph.images: ['/frames/frame_0001.avif']
 ```
 
 ---
@@ -230,7 +230,7 @@ openGraph.images: ['/frames/frame_0001.webp']
 ```
 /
 ├── public/
-│   └── frames/                    ← .webp frames extracted from video
+│   └── frames/                    ← .avif frames extracted from video
 ├── app/
 │   ├── layout.tsx                 ← fonts, metadata, grain overlay, cursor
 │   ├── page.tsx                   ← main scroll page

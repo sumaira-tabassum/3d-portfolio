@@ -75,11 +75,24 @@ export function useFramePreloader(): FrameSet {
         }
       }
 
-      // A failed frame still counts as settled — one bad file must never leave
-      // the loading screen stuck forever.
-      img.onload = done
+      // `onload` only guarantees the bytes are downloaded and dimensions are
+      // known — not that the bitmap is rasterized. Without an explicit
+      // decode, the first drawImage() to touch a given frame during scroll
+      // can trigger a synchronous decode that stalls the main thread
+      // mid-scrub. decode() pays that cost once, up front, while the loading
+      // screen is already showing. A decode() rejection (corrupt/unsupported
+      // image) is treated exactly like onerror — still settled, never leaves
+      // the loading screen stuck.
+      const onLoaded = () => {
+        if (typeof img.decode === 'function') {
+          img.decode().then(done, done)
+        } else {
+          done()
+        }
+      }
+
+      img.onload = onLoaded
       img.onerror = done
-      img.decoding = 'async'
       img.src = framePath(indices[slot])
     }
 

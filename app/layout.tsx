@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: `${AGENCY_NAME} — ${TAGLINE}`,
     description:
       'Software development & consulting. No shortcuts, built right.',
-    images: ['/frames/frame_0001.webp'],
+    images: ['/frames/frame_0001.avif'],
   },
 }
 
